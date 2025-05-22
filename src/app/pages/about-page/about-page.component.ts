@@ -1,10 +1,31 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector        : 'app-about-page',
   imports         : [],
   templateUrl     : './about-page.component.html',
   styleUrl        : './about-page.component.css',
-  changeDetection : ChangeDetectionStrategy.OnPush,
 })
-export default class AboutPageComponent { }
+export default class AboutPageComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta  = inject(Meta);
+
+  ngOnInit(): void {
+    this.title.setTitle('About Page');
+    this.meta.updateTag({
+      name    : 'Description',
+      content : 'Este es mi about page',
+    });
+    this.meta.updateTag({
+      name: 'og:title',
+      content: 'About Page'
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Angular,Curso,Developer'
+    });
+  }
+
+}
