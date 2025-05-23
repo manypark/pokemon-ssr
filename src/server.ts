@@ -1,5 +1,6 @@
 import {
   AngularNodeAppEngine,
+  CommonEngine,
   createNodeRequestHandler,
   isMainModule,
   writeResponseToNodeResponse,
@@ -7,6 +8,7 @@ import {
 import express from 'express';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { render } from '@netlify/angular-runtime/common-engine';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -25,6 +27,18 @@ const angularApp = new AngularNodeAppEngine();
  * });
  * ```
  */
+
+export async function netlifyAppEngineHandler(request: Request): Promise<Response> {
+
+  // Example API endpoints can be defined here.
+  // Uncomment and define endpoints as necessary.
+  // const pathname = new URL(request.url).pathname;
+  // if (pathname === '/api/hello') {
+  //   return Response.json({ message: 'Hello from the API' });
+  // }
+
+  return await render(CommonEngine);
+}
 
 /**
  * Serve static files from /browser
