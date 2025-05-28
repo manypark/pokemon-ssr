@@ -24,7 +24,7 @@ export const routes: Routes = [
     {
         path: '**',
         redirectTo: () => {
-            return 'about';
+            return 'pokemons/page/1';
         }
     }
 ];
