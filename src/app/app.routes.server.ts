@@ -2,7 +2,7 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: 'pokemons/:id',
+    path: 'pokemons/page/:page',
     renderMode: RenderMode.Client
   },
   {
