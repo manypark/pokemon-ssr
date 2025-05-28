@@ -42,12 +42,10 @@ export default class PokemonsPageComponent {
 
   loadPokemons( nextPage:number ) {
 
-    const loadPage = this.currentPage()! + nextPage;
-
-    this.pokemonServices.loadPages(loadPage).pipe(
+    this.pokemonServices.loadPages(nextPage).pipe(
       // cuando se usa el query params
       // tap( () => this.router.navigate([], { queryParams: { page: loadPage } } ) ),
-      tap( () => this.title .setTitle(`Pokemon SSR Page - ${loadPage}`) ),
+      tap( () => this.title .setTitle(`Pokemon SSR Page - ${nextPage}`) ),
     ).subscribe( pokemons => {
         this.pokemonList.set(pokemons);
       }
