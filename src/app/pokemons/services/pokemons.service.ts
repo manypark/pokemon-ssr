@@ -1,5 +1,5 @@
-import { map, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 import { PokeApiResponse, Pokemon, SimplePokemon } from '../interfaces';
@@ -29,7 +29,22 @@ export class PokemonsService {
   }
 
   loadPokemon( idPokemon:string ):Observable<Pokemon>  {
-    return this.http.get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`);
+    return this.http.get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`).pipe(
+      catchError( this.handleError )
+    );
+
+  }
+  private handleError( error:HttpErrorResponse ) {
+
+    if( error.status === 0 ) {
+      // console.log('An error ocurred: ', error.error );
+    } else {
+      // console.log(`Backend returned code: ${error.status}, boyd: `, error.error );
+    }
+
+    const errMessage = error.error ?? 'An error ocurred';
+
+    return throwError( () => new Error( errMessage ) );
   }
 
 }
